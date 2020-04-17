@@ -9,8 +9,13 @@ const GoalInput=props=>{
         newerText(inputText);
     }
 
+    const addGoalHandler=()=>{
+        props.addGoal(olderText);
+        newerText('');
+    };
+
     return(
-        <Modal >
+        <Modal visible={props.visible} animationType="slide">
         <View style={styles.TypeandAddGoal}>
             <TextInput 
                 placeholder="Type your Goal" 
@@ -18,8 +23,10 @@ const GoalInput=props=>{
                 onChangeText={setTextHandler} 
                 value={olderText}
             />
-            <Button title="Add" style={{padding:20}} onPress={props.addGoal.bind(this,olderText)}
-            />
+            <View style={styles.adjustButtons}>
+            <Button title="Add" style={{padding:20}} onPress={addGoalHandler}/>
+            <Button title="CANCEL" color="red" onPress={props.onclose}/>
+            </View>
         </View>
         </Modal>
     );
@@ -33,9 +40,16 @@ styles=StyleSheet.create({
         borderColor:'black'
       },
       TypeandAddGoal:{
-        flexDirection:'row',
-        justifyContent:'space-between',
+          flex:1,
+        flexDirection:'column',
+        justifyContent:'center',
        alignItems:'center'
       },
+      adjustButtons:{
+          flexDirection:'row',
+          justifyContent:'space-around',
+          width:'60%',
+          padding:10
+      }
 })
 export default GoalInput;
